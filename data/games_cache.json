@@ -1,0 +1,78 @@
+{
+  "ok": true,
+  "live_games": [
+    {
+      "game_id": "20240001",
+      "status": 2,
+      "status_text": "2nd Period",
+      "period": 2,
+      "clock": "12:34",
+      "start_time_utc": "2024-10-01T23:00:00Z",
+      "home": {
+        "teamId": 6,
+        "teamTricode": "BOS",
+        "teamName": "Bruins",
+        "teamCity": "Boston",
+        "wins": 4,
+        "losses": 1,
+        "score": 3,
+        "tricode": "BOS",
+        "name": "Bruins",
+        "city": "Boston",
+        "record": "4-1"
+      },
+      "away": {
+        "teamId": 10,
+        "teamTricode": "TOR",
+        "teamName": "Maple Leafs",
+        "teamCity": "Toronto",
+        "wins": 3,
+        "losses": 2,
+        "score": 2,
+        "tricode": "TOR",
+        "name": "Maple Leafs",
+        "city": "Toronto",
+        "record": "3-2"
+      }
+    }
+  ],
+  "today_upcoming": [
+    {
+      "game_id": "20240002",
+      "status": 1,
+      "status_text": "7:00 pm ET",
+      "period": 0,
+      "clock": "",
+      "start_time_utc": "2024-10-02T23:00:00Z",
+      "home": {
+        "teamId": 17,
+        "teamTricode": "DET",
+        "teamName": "Red Wings",
+        "teamCity": "Detroit",
+        "wins": 2,
+        "losses": 3,
+        "score": 0,
+        "tricode": "DET",
+        "name": "Red Wings",
+        "city": "Detroit",
+        "record": "2-3"
+      },
+      "away": {
+        "teamId": 16,
+        "teamTricode": "CHI",
+        "teamName": "Blackhawks",
+        "teamCity": "Chicago",
+        "wins": 2,
+        "losses": 3,
+        "score": 0,
+        "tricode": "CHI",
+        "name": "Blackhawks",
+        "city": "Chicago",
+        "record": "2-3"
+      }
+    }
+  ],
+  "tomorrow_upcoming": [],
+  "warnings": [],
+  "generated_at_utc": "2025-11-25T19:30:00Z"
+}
