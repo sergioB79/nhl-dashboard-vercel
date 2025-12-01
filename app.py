@@ -16,6 +16,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # CSV estático com períodos / standings (tenta NHL, depois fallback antigo)
 CSV_CANDIDATES = [
+    os.path.join(BASE_DIR, "data", "nhl_periods_20252026.csv"),
     os.path.join(BASE_DIR, "data", "nhl_periods_20242025.csv"),
     os.path.join(BASE_DIR, "data", "nba_quarters_202526.csv"),
 ]

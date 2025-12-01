@@ -1,170 +1,203 @@
 """
-getQuarters.py (NHL)
+getQuarters.py (NHL, API nova)
 
-Cria/atualiza um ficheiro CSV com estatísticas por jogo/equipa
-usando o endpoint oficial da NHL (`statsapi.web.nhl.com`).
+Cria/atualiza um CSV com golos por periodo e stats basicas
+usando os endpoints novos:
+- Calendario: https://api-web.nhle.com/v1/schedule/{date} (devolve 1 semana)
+- Boxscore:  https://api-web.nhle.com/v1/gamecenter/{game_id}/boxscore
 
-Inclui golos por período (P1, P2, P3, OT) e métricas básicas
-como remates e power-play.
+Percorre a epoca 2025-2026 ate hoje.
 """
 
 import os
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from typing import Dict, List
 
 import pandas as pd
 import requests
 
-SEASON_ID = "20242025"
+SEASON_ID = "20252026"
 SEASON_TYPE = "Regular"
-START_DATE = date(2024, 10, 1)
+START_DATE = date(2025, 10, 1)
 OUTPUT_FILE = os.path.join("data", f"nhl_periods_{SEASON_ID}.csv")
 
-SCHEDULE_URL = "https://statsapi.web.nhl.com/api/v1/schedule"
-TEAM_URL = "https://statsapi.web.nhl.com/api/v1/teams"
+SCHEDULE_URL = "https://api-web.nhle.com/v1/schedule/{date}"
+BOX_URL = "https://api-web.nhle.com/v1/gamecenter/{game_id}/boxscore"
+MAX_WARNINGS = 20
 
 
-def fetch_team_map() -> Dict[int, Dict[str, str]]:
+def safe_int(value, default=0):
     try:
-        r = requests.get(TEAM_URL, timeout=10)
+        return int(value) if value is not None else default
+    except (TypeError, ValueError):
+        return default
+
+
+def is_dns_error(exc: Exception) -> bool:
+    msg = str(exc).lower()
+    return "name or service not known" in msg or "name resolution" in msg or "getaddrinfo failed" in msg
+
+
+def fetch_schedule_range(start: date, end: date, warnings: List[str]) -> List[Dict]:
+    games: List[Dict] = []
+    seen_ids = set()
+    current = start
+    # cada chamada traz 1 semana de jogos a partir da data dada
+    while current <= end:
+        url = SCHEDULE_URL.format(date=current.isoformat())
+        try:
+            r = requests.get(url, timeout=10)
+            r.raise_for_status()
+            data = r.json()
+            for week in data.get("gameWeek", []) or []:
+                for g in week.get("games", []) or []:
+                    gid = g.get("id")
+                    if not gid or gid in seen_ids:
+                        continue
+                    seen_ids.add(gid)
+                    start_time = g.get("startTimeUTC") or ""
+                    game_date = start_time.split("T")[0] if start_time else ""
+                    games.append(
+                        {
+                            "id": gid,
+                            "date": game_date,
+                            "home": g.get("homeTeam", {}) or {},
+                            "away": g.get("awayTeam", {}) or {},
+                        }
+                    )
+        except Exception as exc:  # noqa: BLE001
+            warnings.append(f"Erro ao obter calendario {current}: {exc}")
+            if is_dns_error(exc):
+                warnings.append("DNS falhou para api-web.nhle.com; a parar recolha.")
+                break
+        if len(warnings) >= MAX_WARNINGS:
+            warnings.append("Limite de avisos atingido; a parar recolha.")
+            break
+        current += timedelta(days=7)
+    return games
+
+
+def fetch_boxscore(game_id: int, warnings: List[str]) -> Dict:
+    url = BOX_URL.format(game_id=game_id)
+    try:
+        r = requests.get(url, timeout=10)
         r.raise_for_status()
-        teams = r.json().get("teams", [])
+        return r.json()
     except Exception as exc:  # noqa: BLE001
-        print("❌ Falha ao obter equipas NHL:", exc)
+        warnings.append(f"Falha boxscore {game_id}: {exc}")
+        if is_dns_error(exc):
+            warnings.append("DNS falhou para api-web.nhle.com; parar restantes boxscores.")
         return {}
 
-    mapping = {}
-    for t in teams:
-        mapping[t.get("id")] = {
-            "abbr": t.get("abbreviation") or (t.get("teamName", "")[:3].upper()),
-            "name": t.get("teamName"),
-            "full": t.get("name"),
-        }
-    return mapping
+
+def extract_periods(team_node: Dict) -> Dict[str, int]:
+    periods = team_node.get("scoresByPeriod", []) or []
+    goals_by_num = {p.get("periodNumber"): safe_int(p.get("goals")) for p in periods}
+    p1 = goals_by_num.get(1, 0)
+    p2 = goals_by_num.get(2, 0)
+    p3 = goals_by_num.get(3, 0)
+    ot = sum(v for k, v in goals_by_num.items() if k and k > 3)
+    total = safe_int(team_node.get("score"), p1 + p2 + p3 + ot)
+    if ot <= 0:
+        ot = max(0, total - (p1 + p2 + p3))
+    return {"p1": p1, "p2": p2, "p3": p3, "ot": ot, "total": total}
 
 
-def fetch_schedule(start: date, end: date) -> List[Dict]:
-    params = {
-        "startDate": start.isoformat(),
-        "endDate": end.isoformat(),
+def build_team_row(
+    side: str, matchup: str, game_id: int, game_date: str, team_node: Dict
+) -> Dict:
+    periods = extract_periods(team_node)
+
+    name = (
+        team_node.get("commonName", {}) or {}
+    ).get("default") or team_node.get("name") or team_node.get("abbrev")
+    abbrev = team_node.get("abbrev")
+
+    pp = team_node.get("powerPlayConversion", {}) or {}
+
+    return {
+        "GAME_ID": str(game_id),
+        "GAME_DATE": game_date,
+        "MATCHUP": matchup,
+        "TEAM_ID": team_node.get("id"),
+        "TEAM_ABBREVIATION": abbrev,
+        "TEAM_NAME": name,
+        "P1": periods["p1"],
+        "P2": periods["p2"],
+        "P3": periods["p3"],
+        "OT": periods["ot"],
+        # aliases para compatibilidade
+        "Q1": periods["p1"],
+        "Q2": periods["p2"],
+        "Q3": periods["p3"],
+        "Q4": periods["ot"],
+        "PTS": periods["total"],
+        "GOALS": periods["total"],
+        "SHOTS": safe_int(team_node.get("sog")),
+        "POWER_PLAY_GOALS": safe_int(pp.get("goals")),
+        "POWER_PLAY_OPPORTUNITIES": safe_int(pp.get("opportunities")),
+        "PIM": safe_int(team_node.get("pim")),
+        "HITS": safe_int(team_node.get("hits")),
+        "BLOCKED": safe_int(team_node.get("blockedShots")),
+        "TAKEAWAYS": safe_int(team_node.get("takeaways")),
+        "GIVEAWAYS": safe_int(team_node.get("giveaways")),
+        "SEASON": SEASON_ID,
+        "SEASON_TYPE": SEASON_TYPE,
     }
-    r = requests.get(SCHEDULE_URL, params=params, timeout=15)
-    r.raise_for_status()
-    return r.json().get("dates", [])
 
 
-def fetch_game_feed(game_pk: int) -> Dict:
-    url = f"https://statsapi.web.nhl.com/api/v1/game/{game_pk}/feed/live"
-    r = requests.get(url, timeout=15)
-    r.raise_for_status()
-    return r.json()
-
-
-def build_rows(team_map: Dict[int, Dict[str, str]]) -> pd.DataFrame:
+def build_rows() -> pd.DataFrame:
+    warnings: List[str] = []
     today = date.today()
-    schedule = fetch_schedule(START_DATE, today)
+    schedule = fetch_schedule_range(START_DATE, today, warnings)
 
     all_rows: List[Dict] = []
 
-    for day in schedule:
-        game_date = day.get("date")
-        for g in day.get("games", []):
-            game_pk = g.get("gamePk")
-            matchup = g.get("teams", {})
-            away_info = matchup.get("away", {})
-            home_info = matchup.get("home", {})
+    for g in schedule:
+        game_id = g.get("id")
+        if not game_id:
+            continue
 
-            try:
-                feed = fetch_game_feed(game_pk)
-            except Exception as exc:  # noqa: BLE001
-                print(f"⚠️ Falha ao obter boxscore de {game_pk}: {exc}")
-                continue
+        box = fetch_boxscore(game_id, warnings)
+        if not box:
+            continue
 
-            linescore = feed.get("liveData", {}).get("linescore", {})
-            periods = linescore.get("periods", [])
+        home_node = box.get("homeTeam", {}) or {}
+        away_node = box.get("awayTeam", {}) or {}
 
-            def period_goals(side: str, num: int) -> int:
-                for p in periods:
-                    if p.get("num") == num:
-                        return p.get(side, {}).get("goals", 0)
-                return 0
+        home_abbr = home_node.get("abbrev") or g.get("home", {}).get("abbrev")
+        away_abbr = away_node.get("abbrev") or g.get("away", {}).get("abbrev")
+        matchup = f"{away_abbr} @ {home_abbr}"
 
-            def ot_goals(side: str) -> int:
-                total = sum(period_goals(side, n) for n in [1, 2, 3])
-                return max(0, linescore.get(side, {}).get("goals", 0) - total)
+        game_date = g.get("date")
 
-            box_teams = feed.get("liveData", {}).get("boxscore", {}).get("teams", {})
+        away_row = build_team_row("away", matchup, game_id, game_date, away_node)
+        home_row = build_team_row("home", matchup, game_id, game_date, home_node)
 
-            def build_team_row(side: str, info: Dict) -> Dict:
-                team = info.get("team", {})
-                tm = team_map.get(team.get("id"), {})
-                stats = box_teams.get(side, {}).get("teamStats", {}).get("teamSkaterStats", {})
-
-                p1 = period_goals(side, 1)
-                p2 = period_goals(side, 2)
-                p3 = period_goals(side, 3)
-                ot = ot_goals(side)
-
-                return {
-                    "GAME_ID": str(game_pk),
-                    "GAME_DATE": game_date,
-                    "MATCHUP": f"{away_team['team'].get('abbreviation', '')} @ {home_team['team'].get('abbreviation', '')}",
-                    "TEAM_ID": team.get("id"),
-                    "TEAM_ABBREVIATION": tm.get("abbr") or team.get("abbreviation"),
-                    "TEAM_NAME": tm.get("name") or team.get("name"),
-                    # períodos NHL
-                    "P1": p1,
-                    "P2": p2,
-                    "P3": p3,
-                    "OT": ot,
-                    # aliases para compatibilidade com UI antiga
-                    "Q1": p1,
-                    "Q2": p2,
-                    "Q3": p3,
-                    "Q4": ot,
-                    "PTS": stats.get("goals", 0),
-                    "GOALS": stats.get("goals", 0),
-                    "SHOTS": stats.get("shots", 0),
-                    "POWER_PLAY_GOALS": stats.get("powerPlayGoals", 0),
-                    "POWER_PLAY_OPPORTUNITIES": stats.get("powerPlayOpportunities", 0),
-                    "PIM": stats.get("pim", 0),
-                    "HITS": stats.get("hits", 0),
-                    "BLOCKED": stats.get("blocked", 0),
-                    "TAKEAWAYS": stats.get("takeaways", 0),
-                    "GIVEAWAYS": stats.get("giveaways", 0),
-                    "SEASON": SEASON_ID,
-                    "SEASON_TYPE": SEASON_TYPE,
-                }
-
-            away_team = matchup.get("away", {})
-            home_team = matchup.get("home", {})
-
-            away_row = build_team_row("away", away_team)
-            home_row = build_team_row("home", home_team)
-
-            all_rows.extend([away_row, home_row])
+        all_rows.extend([away_row, home_row])
 
     df = pd.DataFrame(all_rows)
     if not df.empty:
         df.sort_values(["GAME_DATE", "GAME_ID", "TEAM_ABBREVIATION"], inplace=True)
+    if warnings:
+        print("Avisos:", "; ".join(warnings))
     return df
 
 
 def main():
     try:
-        team_map = fetch_team_map()
-        df = build_rows(team_map)
+        df = build_rows()
     except Exception as exc:  # noqa: BLE001
-        print("❌ Erro geral:", exc)
+        print("? Erro geral:", exc)
         return
 
     if df.empty:
-        print("⚠️ Sem dados para gravar.")
+        print("?? Sem dados para gravar.")
         return
 
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
     df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
-    print(f"✅ Ficheiro atualizado: {OUTPUT_FILE} ({len(df)} linhas)")
+    print(f"? Ficheiro atualizado: {OUTPUT_FILE} ({len(df)} linhas)")
 
 
 if __name__ == "__main__":

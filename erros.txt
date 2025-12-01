@@ -1,0 +1,155 @@
+1. O que está a acontecer no Action
+
+Do log:
+
+Failed to resolve 'statsapi.web.nhl.com' ([Errno -2] Name or service not known)
+
+
+Isto quer dizer:
+
+O runner do GitHub tenta ir a
+https://statsapi.web.nhl.com/api/v1/teams
+https://statsapi.web.nhl.com/api/v1/schedule?...
+
+O domínio statsapi.web.nhl.com já não existe / não resolve DNS → NameResolutionError.
+
+O teu código apanha a exceção, escreve warnings, mas no fim marca ok=True e grava games_cache.json (provavelmente quase vazio ou com dados antigos).
+
+Ou seja:
+✅ Action corre.
+✅ Script não “rebenta”.
+❌ Mas já não consegue buscar dados novos porque o endpoint foi desligado.
+
+2. Root cause (não é culpa tua)
+
+A NHL desligou a API antiga statsapi.web.nhl.com e passou tudo para a API nova:
+
+Web API nova: https://api-web.nhle.com/v1/...
+
+Stats API nova: https://api.nhle.com/stats/rest/en/...
+
+Exemplo real: hoje em dia usam-se endpoints como:
+
+https://api.nhle.com/stats/rest/en/team/powerplay?...   # devolve teamFullName, etc.
+
+
+Portanto, o erro é exatamente isto:
+
+O host statsapi.web.nhl.com deixou de existir → DNS falha → NameResolutionError.
+
+3. Problemas específicos no TEU projeto NHL
+
+Há duas coisas em cima da mesa:
+
+3.1. Scripts Python
+
+Nos teus ficheiros:
+
+getQuarters.py
+
+getGames.py
+
+tens constantes do género (resumo):
+
+TEAMS_URL = "https://statsapi.web.nhl.com/api/v1/teams"
+SCHEDULE_URL = "https://statsapi.web.nhl.com/api/v1/schedule"
+LINESCORE_URL = "https://statsapi.web.nhl.com/api/v1/game/{gamePk}/linescore"
+BOX_URL = "https://statsapi.web.nhl.com/api/v1/game/{gamePk}/boxscore"
+
+
+Tudo isto aponta para o domínio mortinho.
+
+Enquanto não trocares estes endpoints para a API nova (api-web.nhle.com / api.nhle.com), nada do lado NHL vai voltar a ser atualizado, nem no GitHub Action nem localmente.
+
+Nota: o script continua a dizer ok=True porque o teu getGames.py está a apanhar a exceção, devolver listas vazias, e no fim marca ok=True. É por design — para não rebentar o site, mas também esconde o problema.
+
+3.2. O workflow ainda fala em “NBA”
+
+No .github/workflows/update_csv.yml que veio no ZIP, tens isto:
+
+- name: Commit and push if data changed
+  ...
+  run: |
+    if git diff --quiet; then
+      echo "No changes to commit"
+      exit 0
+    fi
+
+    git config user.name "github-actions[bot]"
+    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+    git add data/nba_quarters_202526.csv data/games_cache.json
+    git commit -m "Auto-update NBA CSV and games from GitHub Actions"
+    git push
+
+
+Para o projeto NHL devias ter algo do tipo:
+
+git add data/nhl_periods_20242025.csv data/games_cache.json
+git commit -m "Auto-update NHL CSV and games from GitHub Actions"
+
+
+Neste momento:
+
+O getQuarters.py gera data/nhl_periods_20242025.csv.
+
+O Action nunca faz git add desse ficheiro, só do nba_quarters_202526.csv.
+
+Mesmo que o script funcionasse, o CSV da NHL não era comitado.
+
+4. O que eu faria agora (passos concretos)
+Passo 1 — Aceitar que o velho statsapi.web.nhl.com morreu
+
+Nada que mexas no GitHub Actions vai resolver enquanto os scripts forem a esse domínio. É preciso atualizar o código.
+
+Passo 2 — Corrigir o workflow
+
+No .github/workflows/update_csv.yml do repo NHL:
+
+Muda o git add:
+
+- git add data/nba_quarters_202526.csv data/games_cache.json
+- git commit -m "Auto-update NBA CSV and games from GitHub Actions"
++ git add data/nhl_periods_20242025.csv data/games_cache.json
++ git commit -m "Auto-update NHL CSV and games from GitHub Actions"
+
+
+Isto não resolve o problema da API, mas garante que, quando o script funcionar, as alterações ao CSV certo vão ser comitadas.
+
+Passo 3 — Decidir estratégia para a API nova
+
+Soluçao –> Reescrever a sério para a nova API
+
+Aqui a ideia é:
+
+Substituir todos os endpoints statsapi.web.nhl.com por:
+
+https://api-web.nhle.com/v1/schedule/{date} (calendário),
+
+https://api-web.nhle.com/v1/gamecenter/{GAME_ID}/boxscore (períodos, golos, etc.),
+
+https://api.nhle.com/stats/rest/en/team/... (registos, teamFullName, etc.).
+
+Ajustar o parsing do JSON (os campos mudam de nomes).
+
+Voltamos a ter:
+
+nhl_periods_20242025.csv com golos por período por equipa/jogo;
+
+games_cache.json completo com registos, period/clock corretos.
+
+Isto é totalmente faisável, só é mais trabalho: é quase um mini-projeto novo.
+
+5. Resumo rápido para ti
+
+Nada está “bugado” no GitHub → o problema é mesmo a API da NHL que usas.
+
+O domínio statsapi.web.nhl.com foi desligado e já não resolve DNS.
+
+O teu Action corre, mas:
+
+os requests rebentam com NameResolutionError,
+
+o script engole a exceção e continua,
+
+e ainda por cima o workflow está a fazer git add ao CSV da NBA, não ao da NHL.
