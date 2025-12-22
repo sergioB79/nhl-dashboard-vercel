@@ -4,8 +4,8 @@
   "today_upcoming": [],
   "tomorrow_upcoming": [],
   "warnings": [
-    "Erro ao obter jogos da NHL (2025-12-21): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2025-12-21",
-    "Erro ao obter jogos da NHL (2025-12-22): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2025-12-22"
+    "Erro ao obter jogos da NHL (2025-12-22): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2025-12-22",
+    "Erro ao obter jogos da NHL (2025-12-23): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2025-12-23"
   ],
-  "generated_at_utc": "2025-12-21T05:23:40.560520+00:00"
+  "generated_at_utc": "2025-12-22T05:28:40.466340+00:00"
 }
