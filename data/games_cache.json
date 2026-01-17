@@ -4,8 +4,8 @@
   "today_upcoming": [],
   "tomorrow_upcoming": [],
   "warnings": [
-    "Erro ao obter jogos da NHL (2026-01-16): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2026-01-16",
-    "Erro ao obter jogos da NHL (2026-01-17): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2026-01-17"
+    "Erro ao obter jogos da NHL (2026-01-17): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2026-01-17",
+    "Erro ao obter jogos da NHL (2026-01-18): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2026-01-18"
   ],
-  "generated_at_utc": "2026-01-16T05:28:24.960195+00:00"
+  "generated_at_utc": "2026-01-17T05:24:17.901794+00:00"
 }
