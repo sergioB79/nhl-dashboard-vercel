@@ -3,45 +3,11 @@
   "live_games": [],
   "today_upcoming": [
     {
-      "game_id": "2025030323",
-      "status": 1,
-      "status_text": "FUT",
-      "period": null,
-      "clock": "20:00",
-      "start_time_utc": "2026-05-25T00:00:00Z",
-      "home": {
-        "teamId": 54,
-        "teamTricode": "VGK",
-        "teamName": "Golden Knights",
-        "teamCity": "Vegas",
-        "wins": null,
-        "losses": null,
-        "score": null,
-        "tricode": "VGK",
-        "name": "Golden Knights",
-        "city": "Vegas",
-        "record": ""
-      },
-      "away": {
-        "teamId": 21,
-        "teamTricode": "COL",
-        "teamName": "Avalanche",
-        "teamCity": "Colorado",
-        "wins": null,
-        "losses": null,
-        "score": null,
-        "tricode": "COL",
-        "name": "Avalanche",
-        "city": "Colorado",
-        "record": ""
-      }
-    },
-    {
       "game_id": "2025030313",
       "status": 1,
       "status_text": "FUT",
       "period": null,
-      "clock": "20:00",
+      "clock": null,
       "start_time_utc": "2026-05-26T00:00:00Z",
       "home": {
         "teamId": 8,
@@ -75,7 +41,7 @@
       "status": 1,
       "status_text": "FUT",
       "period": null,
-      "clock": null,
+      "clock": "20:00",
       "start_time_utc": "2026-05-27T01:00:00Z",
       "home": {
         "teamId": 54,
@@ -211,7 +177,7 @@
       "status": 1,
       "status_text": "FUT",
       "period": null,
-      "clock": null,
+      "clock": "20:00",
       "start_time_utc": "2026-05-31T00:00:00Z",
       "home": {
         "teamId": 54,
@@ -239,16 +205,50 @@
         "city": "Colorado",
         "record": ""
       }
+    },
+    {
+      "game_id": "2025030316",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": null,
+      "start_time_utc": "2026-05-31T16:00:00Z",
+      "home": {
+        "teamId": 8,
+        "teamTricode": "MTL",
+        "teamName": "Canadiens",
+        "teamCity": "Montréal",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "MTL",
+        "name": "Canadiens",
+        "city": "Montréal",
+        "record": ""
+      },
+      "away": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      }
     }
   ],
   "tomorrow_upcoming": [],
   "warnings": [
-    "Falha ao obter clock de 2025030324: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030324/boxscore",
+    "Falha ao obter clock de 2025030313: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030313/boxscore",
     "Falha ao obter clock de 2025030314: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030314/boxscore",
     "Falha ao obter clock de 2025030325: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030325/boxscore",
     "Falha ao obter clock de 2025030315: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030315/boxscore",
-    "Falha ao obter clock de 2025030326: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030326/boxscore",
-    "Erro ao obter jogos da NHL (2026-05-25): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2026-05-25"
+    "Falha ao obter clock de 2025030316: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030316/boxscore",
+    "Erro ao obter jogos da NHL (2026-05-26): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2026-05-26"
   ],
-  "generated_at_utc": "2026-05-24T07:55:57.277805+00:00"
+  "generated_at_utc": "2026-05-25T08:58:46.153547+00:00"
 }
