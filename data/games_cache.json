@@ -1,11 +1,252 @@
 {
   "ok": false,
   "live_games": [],
-  "today_upcoming": [],
-  "tomorrow_upcoming": [],
-  "warnings": [
-    "Erro ao obter jogos da NHL (2026-05-26): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2026-05-26",
-    "Erro ao obter jogos da NHL (2026-05-27): 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/schedule/2026-05-27"
+  "today_upcoming": [
+    {
+      "game_id": "2025030314",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": "20:00",
+      "start_time_utc": "2026-05-28T00:00:00Z",
+      "home": {
+        "teamId": 8,
+        "teamTricode": "MTL",
+        "teamName": "Canadiens",
+        "teamCity": "Montréal",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "MTL",
+        "name": "Canadiens",
+        "city": "Montréal",
+        "record": ""
+      },
+      "away": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      }
+    },
+    {
+      "game_id": "2025030315",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": "20:00",
+      "start_time_utc": "2026-05-30T00:00:00Z",
+      "home": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      },
+      "away": {
+        "teamId": 8,
+        "teamTricode": "MTL",
+        "teamName": "Canadiens",
+        "teamCity": "Montréal",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "MTL",
+        "name": "Canadiens",
+        "city": "Montréal",
+        "record": ""
+      }
+    },
+    {
+      "game_id": "2025030316",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": "20:00",
+      "start_time_utc": "2026-05-31T16:00:00Z",
+      "home": {
+        "teamId": 8,
+        "teamTricode": "MTL",
+        "teamName": "Canadiens",
+        "teamCity": "Montréal",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "MTL",
+        "name": "Canadiens",
+        "city": "Montréal",
+        "record": ""
+      },
+      "away": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      }
+    },
+    {
+      "game_id": "2025030317",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": "20:00",
+      "start_time_utc": "2026-06-03T00:00:00Z",
+      "home": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      },
+      "away": {
+        "teamId": 8,
+        "teamTricode": "MTL",
+        "teamName": "Canadiens",
+        "teamCity": "Montréal",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "MTL",
+        "name": "Canadiens",
+        "city": "Montréal",
+        "record": ""
+      }
+    }
   ],
-  "generated_at_utc": "2026-05-26T08:31:46.255637+00:00"
+  "tomorrow_upcoming": [
+    {
+      "game_id": "2025030315",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": null,
+      "start_time_utc": "2026-05-30T00:00:00Z",
+      "home": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      },
+      "away": {
+        "teamId": 8,
+        "teamTricode": "MTL",
+        "teamName": "Canadiens",
+        "teamCity": "Montréal",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "MTL",
+        "name": "Canadiens",
+        "city": "Montréal",
+        "record": ""
+      }
+    },
+    {
+      "game_id": "2025030316",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": null,
+      "start_time_utc": "2026-05-31T16:00:00Z",
+      "home": {
+        "teamId": 8,
+        "teamTricode": "MTL",
+        "teamName": "Canadiens",
+        "teamCity": "Montréal",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "MTL",
+        "name": "Canadiens",
+        "city": "Montréal",
+        "record": ""
+      },
+      "away": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      }
+    },
+    {
+      "game_id": "2025030317",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": null,
+      "start_time_utc": "2026-06-03T00:00:00Z",
+      "home": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      },
+      "away": {
+        "teamId": 8,
+        "teamTricode": "MTL",
+        "teamName": "Canadiens",
+        "teamCity": "Montréal",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "MTL",
+        "name": "Canadiens",
+        "city": "Montréal",
+        "record": ""
+      }
+    }
+  ],
+  "warnings": [
+    "Falha ao obter clock de 2025030315: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030315/boxscore",
+    "Falha ao obter clock de 2025030316: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030316/boxscore",
+    "Falha ao obter clock de 2025030317: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030317/boxscore"
+  ],
+  "generated_at_utc": "2026-05-27T08:44:20.854958+00:00"
 }
