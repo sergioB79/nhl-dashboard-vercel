@@ -3,40 +3,6 @@
   "live_games": [],
   "today_upcoming": [
     {
-      "game_id": "2025030411",
-      "status": 1,
-      "status_text": "FUT",
-      "period": null,
-      "clock": "20:00",
-      "start_time_utc": "2026-06-03T00:00:00Z",
-      "home": {
-        "teamId": 12,
-        "teamTricode": "CAR",
-        "teamName": "Hurricanes",
-        "teamCity": "Carolina",
-        "wins": null,
-        "losses": null,
-        "score": null,
-        "tricode": "CAR",
-        "name": "Hurricanes",
-        "city": "Carolina",
-        "record": ""
-      },
-      "away": {
-        "teamId": 54,
-        "teamTricode": "VGK",
-        "teamName": "Golden Knights",
-        "teamCity": "Vegas",
-        "wins": null,
-        "losses": null,
-        "score": null,
-        "tricode": "VGK",
-        "name": "Golden Knights",
-        "city": "Vegas",
-        "record": ""
-      }
-    },
-    {
       "game_id": "2025030412",
       "status": 1,
       "status_text": "FUT",
@@ -77,6 +43,40 @@
       "period": null,
       "clock": "20:00",
       "start_time_utc": "2026-06-07T00:00:00Z",
+      "home": {
+        "teamId": 54,
+        "teamTricode": "VGK",
+        "teamName": "Golden Knights",
+        "teamCity": "Vegas",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "VGK",
+        "name": "Golden Knights",
+        "city": "Vegas",
+        "record": ""
+      },
+      "away": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      }
+    },
+    {
+      "game_id": "2025030414",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": "20:00",
+      "start_time_utc": "2026-06-10T00:00:00Z",
       "home": {
         "teamId": 54,
         "teamTricode": "VGK",
@@ -210,5 +210,5 @@
     }
   ],
   "warnings": [],
-  "generated_at_utc": "2026-06-02T09:16:52.147104+00:00"
+  "generated_at_utc": "2026-06-03T09:33:50.805034+00:00"
 }
