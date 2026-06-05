@@ -3,40 +3,6 @@
   "live_games": [],
   "today_upcoming": [
     {
-      "game_id": "2025030412",
-      "status": 1,
-      "status_text": "FUT",
-      "period": null,
-      "clock": "20:00",
-      "start_time_utc": "2026-06-05T00:00:00Z",
-      "home": {
-        "teamId": 12,
-        "teamTricode": "CAR",
-        "teamName": "Hurricanes",
-        "teamCity": "Carolina",
-        "wins": null,
-        "losses": null,
-        "score": null,
-        "tricode": "CAR",
-        "name": "Hurricanes",
-        "city": "Carolina",
-        "record": ""
-      },
-      "away": {
-        "teamId": 54,
-        "teamTricode": "VGK",
-        "teamName": "Golden Knights",
-        "teamCity": "Vegas",
-        "wins": null,
-        "losses": null,
-        "score": null,
-        "tricode": "VGK",
-        "name": "Golden Knights",
-        "city": "Vegas",
-        "record": ""
-      }
-    },
-    {
       "game_id": "2025030413",
       "status": 1,
       "status_text": "FUT",
@@ -101,6 +67,40 @@
         "tricode": "CAR",
         "name": "Hurricanes",
         "city": "Carolina",
+        "record": ""
+      }
+    },
+    {
+      "game_id": "2025030415",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": "20:00",
+      "start_time_utc": "2026-06-12T00:00:00Z",
+      "home": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      },
+      "away": {
+        "teamId": 54,
+        "teamTricode": "VGK",
+        "teamName": "Golden Knights",
+        "teamCity": "Vegas",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "VGK",
+        "name": "Golden Knights",
+        "city": "Vegas",
         "record": ""
       }
     }
@@ -210,5 +210,5 @@
     }
   ],
   "warnings": [],
-  "generated_at_utc": "2026-06-04T08:57:26.796319+00:00"
+  "generated_at_utc": "2026-06-05T08:49:27.813621+00:00"
 }
