@@ -107,40 +107,6 @@
   ],
   "tomorrow_upcoming": [
     {
-      "game_id": "2025030414",
-      "status": 1,
-      "status_text": "FUT",
-      "period": null,
-      "clock": "20:00",
-      "start_time_utc": "2026-06-10T00:00:00Z",
-      "home": {
-        "teamId": 54,
-        "teamTricode": "VGK",
-        "teamName": "Golden Knights",
-        "teamCity": "Vegas",
-        "wins": null,
-        "losses": null,
-        "score": null,
-        "tricode": "VGK",
-        "name": "Golden Knights",
-        "city": "Vegas",
-        "record": ""
-      },
-      "away": {
-        "teamId": 12,
-        "teamTricode": "CAR",
-        "teamName": "Hurricanes",
-        "teamCity": "Carolina",
-        "wins": null,
-        "losses": null,
-        "score": null,
-        "tricode": "CAR",
-        "name": "Hurricanes",
-        "city": "Carolina",
-        "record": ""
-      }
-    },
-    {
       "game_id": "2025030415",
       "status": 1,
       "status_text": "FUT",
@@ -210,5 +176,5 @@
     }
   ],
   "warnings": [],
-  "generated_at_utc": "2026-06-08T09:29:48.298805+00:00"
+  "generated_at_utc": "2026-06-09T08:38:35.564777+00:00"
 }
