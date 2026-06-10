@@ -1,41 +1,7 @@
 {
-  "ok": true,
+  "ok": false,
   "live_games": [],
   "today_upcoming": [
-    {
-      "game_id": "2025030414",
-      "status": 1,
-      "status_text": "FUT",
-      "period": null,
-      "clock": "20:00",
-      "start_time_utc": "2026-06-10T00:00:00Z",
-      "home": {
-        "teamId": 54,
-        "teamTricode": "VGK",
-        "teamName": "Golden Knights",
-        "teamCity": "Vegas",
-        "wins": null,
-        "losses": null,
-        "score": null,
-        "tricode": "VGK",
-        "name": "Golden Knights",
-        "city": "Vegas",
-        "record": ""
-      },
-      "away": {
-        "teamId": 12,
-        "teamTricode": "CAR",
-        "teamName": "Hurricanes",
-        "teamCity": "Carolina",
-        "wins": null,
-        "losses": null,
-        "score": null,
-        "tricode": "CAR",
-        "name": "Hurricanes",
-        "city": "Carolina",
-        "record": ""
-      }
-    },
     {
       "game_id": "2025030415",
       "status": 1,
@@ -111,7 +77,7 @@
       "status": 1,
       "status_text": "FUT",
       "period": null,
-      "clock": "20:00",
+      "clock": null,
       "start_time_utc": "2026-06-12T00:00:00Z",
       "home": {
         "teamId": 12,
@@ -145,7 +111,7 @@
       "status": 1,
       "status_text": "FUT",
       "period": null,
-      "clock": "20:00",
+      "clock": null,
       "start_time_utc": "2026-06-15T00:00:00Z",
       "home": {
         "teamId": 54,
@@ -173,8 +139,46 @@
         "city": "Carolina",
         "record": ""
       }
+    },
+    {
+      "game_id": "2025030417",
+      "status": 1,
+      "status_text": "FUT",
+      "period": null,
+      "clock": null,
+      "start_time_utc": "2026-06-18T00:00:00Z",
+      "home": {
+        "teamId": 12,
+        "teamTricode": "CAR",
+        "teamName": "Hurricanes",
+        "teamCity": "Carolina",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "CAR",
+        "name": "Hurricanes",
+        "city": "Carolina",
+        "record": ""
+      },
+      "away": {
+        "teamId": 54,
+        "teamTricode": "VGK",
+        "teamName": "Golden Knights",
+        "teamCity": "Vegas",
+        "wins": null,
+        "losses": null,
+        "score": null,
+        "tricode": "VGK",
+        "name": "Golden Knights",
+        "city": "Vegas",
+        "record": ""
+      }
     }
   ],
-  "warnings": [],
-  "generated_at_utc": "2026-06-09T08:38:35.564777+00:00"
+  "warnings": [
+    "Falha ao obter clock de 2025030415: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030415/boxscore",
+    "Falha ao obter clock de 2025030416: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030416/boxscore",
+    "Falha ao obter clock de 2025030417: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030417/boxscore"
+  ],
+  "generated_at_utc": "2026-06-10T08:55:38.957841+00:00"
 }
