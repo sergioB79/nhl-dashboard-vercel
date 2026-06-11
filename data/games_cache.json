@@ -1,5 +1,5 @@
 {
-  "ok": false,
+  "ok": true,
   "live_games": [],
   "today_upcoming": [
     {
@@ -69,16 +69,14 @@
         "city": "Carolina",
         "record": ""
       }
-    }
-  ],
-  "tomorrow_upcoming": [
+    },
     {
-      "game_id": "2025030415",
+      "game_id": "2025030417",
       "status": 1,
       "status_text": "FUT",
       "period": null,
-      "clock": null,
-      "start_time_utc": "2026-06-12T00:00:00Z",
+      "clock": "20:00",
+      "start_time_utc": "2026-06-18T00:00:00Z",
       "home": {
         "teamId": 12,
         "teamTricode": "CAR",
@@ -105,13 +103,15 @@
         "city": "Vegas",
         "record": ""
       }
-    },
+    }
+  ],
+  "tomorrow_upcoming": [
     {
       "game_id": "2025030416",
       "status": 1,
       "status_text": "FUT",
       "period": null,
-      "clock": null,
+      "clock": "20:00",
       "start_time_utc": "2026-06-15T00:00:00Z",
       "home": {
         "teamId": 54,
@@ -145,7 +145,7 @@
       "status": 1,
       "status_text": "FUT",
       "period": null,
-      "clock": null,
+      "clock": "20:00",
       "start_time_utc": "2026-06-18T00:00:00Z",
       "home": {
         "teamId": 12,
@@ -175,10 +175,6 @@
       }
     }
   ],
-  "warnings": [
-    "Falha ao obter clock de 2025030415: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030415/boxscore",
-    "Falha ao obter clock de 2025030416: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030416/boxscore",
-    "Falha ao obter clock de 2025030417: 429 Client Error: Too Many Requests for url: https://api-web.nhle.com/v1/gamecenter/2025030417/boxscore"
-  ],
-  "generated_at_utc": "2026-06-10T08:55:38.957841+00:00"
+  "warnings": [],
+  "generated_at_utc": "2026-06-11T09:19:59.241506+00:00"
 }
