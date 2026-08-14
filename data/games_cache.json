@@ -1,8 +1,11 @@
 {
-  "ok": true,
+  "ok": false,
   "live_games": [],
   "today_upcoming": [],
   "tomorrow_upcoming": [],
-  "warnings": [],
-  "generated_at_utc": "2026-08-13T06:24:03.229636+00:00"
+  "warnings": [
+    "Erro ao obter jogos da NHL (2026-08-14): HTTPSConnectionPool(host='api-web.nhle.com', port=443): Read timed out. (read timeout=10)",
+    "Erro ao obter jogos da NHL (2026-08-15): HTTPSConnectionPool(host='api-web.nhle.com', port=443): Read timed out. (read timeout=10)"
+  ],
+  "generated_at_utc": "2026-08-14T06:16:57.044600+00:00"
 }
